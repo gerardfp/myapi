@@ -23,4 +23,8 @@ public interface MapStructMapper {
     FileDetails toFileDetails(File file);
     List<FileDetails> toListFileDetails(List<File> files);
 
+
+    GenreActors toGenreActors(Genre genre);
+    List<GenreActors> toListGenreActors(List<Genre> genre);
+
 }

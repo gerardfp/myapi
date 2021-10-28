@@ -14,10 +14,7 @@ public class Actor {
 
     public String name;
 
-    @ManyToMany(
-            fetch = FetchType.LAZY
-//            mappedBy = "actors"
-    )
+    @ManyToMany
     @JoinTable(
             name = "movie_actor",
             joinColumns = @JoinColumn(name = "actorid"),

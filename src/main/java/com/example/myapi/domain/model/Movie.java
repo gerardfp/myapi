@@ -17,7 +17,7 @@ public class Movie {
     public String imageurl;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "movie_actor",
             joinColumns = @JoinColumn(name = "movieid"),
@@ -25,7 +25,7 @@ public class Movie {
     )
     public Set<Actor> actors = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "movie_genre",
             joinColumns = @JoinColumn(name = "movieid"),

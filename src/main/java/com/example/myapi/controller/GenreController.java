@@ -1,8 +1,8 @@
 package com.example.myapi.controller;
 
 import com.example.myapi.domain.MapStructMapper;
+import com.example.myapi.domain.dto.GenreActors;
 import com.example.myapi.domain.dto.GenreDetails;
-import com.example.myapi.domain.dto.GenreSlim;
 import com.example.myapi.repository.GenreRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +31,8 @@ public class GenreController {
     }
 
     @GetMapping("/wa")
-    public List<GenreSlim> getGenreActors(){
-        return genreRepository.listWithActors();
+    public List<GenreActors> getGenreActors(){
+        return mapStructMapper.toListGenreActors(genreRepository.listWithActors());
     }
 
     @GetMapping("/findByLabel")
