@@ -9,6 +9,7 @@ import java.util.UUID;
 @Table(name = "actor")
 public class Actor {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID actorid;
 
     public String name;

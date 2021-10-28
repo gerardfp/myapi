@@ -1,7 +1,9 @@
 package com.example.myapi.controller;
 
 import com.example.myapi.domain.MapStructMapper;
+import com.example.myapi.domain.dto.MovieCreateRequest;
 import com.example.myapi.domain.dto.MovieDetails;
+import com.example.myapi.domain.model.Movie;
 import com.example.myapi.repository.MovieRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,28 +21,31 @@ public class MovieController {
         this.mapStructMapper = mapStructMapper;
     }
 
-//    @GetMapping("/")
-//    public List<Movie> getAll() {
-//        return movieService.findAll();
-//    }
-
     @GetMapping("/")
     public List<MovieDetails> getAll() {
-        return mapStructMapper.moviesToMoviesDetails(movieRepository.findAll());
+        return mapStructMapper.toListMovieDetails(movieRepository.findAll());
     }
 
     @GetMapping("/{id}")
     public MovieDetails getById(@PathVariable UUID id) {
-        return mapStructMapper.movieToMovieDetails(movieRepository.findById(id).orElse(null));
+        movieRepository.findAll();
+
+        return mapStructMapper.toMovieDetails(movieRepository.findById(id).orElse(null));
     }
 
     @GetMapping("/findByTitle")
     public List<MovieDetails> findByTitle(@RequestParam String title) {
-        return mapStructMapper.moviesToMoviesDetails(movieRepository.findByTitle(title));
+        return mapStructMapper.toListMovieDetails(movieRepository.findByTitle(title));
     }
 
     @GetMapping("/searchByTitle")
     public List<MovieDetails> searchByTitle(@RequestParam String title) {
-        return mapStructMapper.moviesToMoviesDetails(movieRepository.searchByTitle(title));
+        return mapStructMapper.toListMovieDetails(movieRepository.searchByTitle(title));
+    }
+
+    @PostMapping("/")
+    public Movie create(@RequestBody MovieCreateRequest movieCreateRequest) {
+        System.out.println(movieCreateRequest.title + "   !!!  " + movieCreateRequest.synopsis);
+        return movieRepository.save(mapStructMapper.toMovie(movieCreateRequest));
     }
 }

@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MovieRepository extends JpaRepository<Movie, UUID> {
+
+    <T> T findByTitle(String title, Class<T> clazz);
+
     List<Movie> findByTitle(String title);
 
     @Query("SELECT m FROM Movie m WHERE m.title LIKE '%' || :title || '%'")

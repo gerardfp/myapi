@@ -9,9 +9,11 @@ import java.util.UUID;
 @Table(name = "movie")
 public class Movie {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID movieid;
 
     public String title;
+    public String synopsis;
     public String imageurl;
 
 
@@ -22,4 +24,12 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "actorid")
     )
     public Set<Actor> actors = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = @JoinColumn(name = "movieid"),
+            inverseJoinColumns = @JoinColumn(name = "genreid")
+    )
+    public Set<Genre> genres = new HashSet<>();
 }
